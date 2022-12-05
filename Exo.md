@@ -1,7 +1,5 @@
 ## 1:Sélectionner toutes les colonnes de la table SERV.
-SELECT noserv FROM serv;
-SELECT service FROM serv;
-SELECT ville FROM serv;
+SELECT SERVICE, NOSERV, VILLE FROM SERV;
 
 ## 2:Sélectionner d’une autre manière ces colonnes.
 SELECT * FROM serv;
@@ -28,17 +26,40 @@ SELECT nom, prenom, noemp, noserv FROM emp WHERE emploi = 'TECHNICIEN';
 SELECT nom, noserv FROM emp WHERE noserv > 2;
 
 ## 10 : Sélectionner les noms, numéros de service de tous les services dont le numéro est inférieur ou égal à 2.
+SELECT nom, noserv FROM emp WHERE noserv <= 2;
 
-/*11 : Sélectionner les employés dont la commission est inférieure au salaire. Vérifiez le résultat jusqu’à obtenir la bonne réponse.*/
-/*12 : Sélectionner les employés qui ne touchent jamais de commission.*/
-/*13 : Sélectionner les employés qui touchent éventuellement une commission et dans l’ordre croissant des commissions.*/
-/*14 : Sélectionner les employés qui ont un chef.*/
-/*15 : Sélectionner les employés qui n’ont pas de chef.*/
-/*16 : Sélectionner les noms, emploi, salaire, numéro de service de tous les employés du service 5 qui gagnent plus de 20000 €.*/
-/*17 : Sélectionner les vendeurs du service 6 qui ont un revenu mensuel supérieur ou égal à 9500 €.*/
-/*18 : Sélectionner dans les employés tous les présidents et directeurs. Attention, le français et la logique sont parfois contradictoires.*/
-/*19 : Sélectionner les directeurs qui ne sont pas dans le service 3.*/
-/*20 : Sélectionner les directeurs et « les techniciens du service 1 ».*/
+## 11 : Sélectionner les employés dont la commission est inférieure au salaire. Vérifiez le résultat jusqu’à obtenir la bonne réponse.
+SELECT * FROM emp WHERE comm < sal;
+
+
+## 12 : Sélectionner les employés qui ne touchent jamais de commission.
+SELECT * FROM emp WHERE comm is null;
+
+## 13 : Sélectionner les employés qui touchent éventuellement une commission et dans l’ordre croissant des commissions.
+SELECT * FROM emp WHERE comm is not null ORDER BY comm;
+
+## 14 : Sélectionner les employés qui ont un chef.
+SELECT * FROM emp WHERE sup is not null;
+
+## 15 : Sélectionner les employés qui n’ont pas de chef.
+SELECT * FROM emp WHERE sup is null;
+
+## 16 : Sélectionner les noms, emploi, salaire, numéro de service de tous les employés du service 5 qui gagnent plus de 20000 €.
+SELECT * FROM emp WHERE sal > 20000;
+
+## 17 : Sélectionner les vendeurs du service 6 qui ont un revenu mensuel supérieur ou égal à 9500 €.
+SELECT * FROM emp WHERE emploi = 'VENDEUR' and noserv = 6 and sal >= 9500;
+
+## 18 : Sélectionner dans les employés tous les présidents et directeurs. Attention, le français et la logique sont parfois contradictoires.
+SELECT * FROM emp WHERE emploi = 'DIRECTEUR' or emploi = 'PRESIDENT';
+
+## 19 : Sélectionner les directeurs qui ne sont pas dans le service 3.
+SELECT * FROM emp WHERE emploi = 'DIRECTEUR' and noserv != 3;
+
+
+## 20 : Sélectionner les directeurs et « les techniciens du service 1 ».
+
+
 /*21 : Sélectionner les « directeurs et les techniciens » du service 1.*/
 /*22 : Sélectionner les employés du service 1 qui sont directeurs ou techniciens.*/
 /*23 : Sélectionner les employés qui ne sont ni directeur, ni technicien et travaillant dans le service 1.*/
