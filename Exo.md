@@ -58,11 +58,17 @@ SELECT * FROM emp WHERE emploi = 'DIRECTEUR' and noserv != 3;
 
 
 ## 20 : Sélectionner les directeurs et « les techniciens du service 1 ».
+SELECT * FROM emp WHERE emploi = 'DIRECTEUR' or emploi = 'TECHNICIEN' and noserv = 1;
 
+## 21 : Sélectionner les « directeurs et les techniciens » du service 1.
+SELECT * FROM emp WHERE emploi = 'DIRECTEUR' and noserv = 1 or emploi = 'TECHNICIEN' and noserv = 1;
 
-/*21 : Sélectionner les « directeurs et les techniciens » du service 1.*/
-/*22 : Sélectionner les employés du service 1 qui sont directeurs ou techniciens.*/
-/*23 : Sélectionner les employés qui ne sont ni directeur, ni technicien et travaillant dans le service 1.*/
+## 22 : Sélectionner les employés du service 1 qui sont directeurs ou techniciens.
+SELECT * FROM emp WHERE emploi = 'DIRECTEUR' and noserv = 1 or emploi = 'TECHNICIEN' and noserv = 1;
+
+## 23 : Sélectionner les employés qui ne sont ni directeur, ni technicien et travaillant dans le service 1.
+SELECT * FROM emp WHERE emploi != 'DIRECTEUR'  and noserv = 1 or emploi != 'TECHNICIEN'  and noserv = 1
+
 /*24 : Sélectionner les employés qui sont techniciens, comptables ou vendeurs.*/
 /*25 : Sélectionner les employés qui ne sont ni technicien, ni comptable, ni vendeur.*/
 /*26 : Sélectionner les directeurs des services 2, 4 et 5.*/
