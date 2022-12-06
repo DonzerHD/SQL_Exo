@@ -69,31 +69,78 @@ SELECT * FROM emp WHERE emploi = 'DIRECTEUR' and noserv = 1 or emploi = 'TECHNIC
 ## 23 : Sélectionner les employés qui ne sont ni directeur, ni technicien et travaillant dans le service 1.
 SELECT * FROM emp WHERE emploi != 'DIRECTEUR'  and noserv = 1 or emploi != 'TECHNICIEN'  and noserv = 1
 
-/*24 : Sélectionner les employés qui sont techniciens, comptables ou vendeurs.*/
-/*25 : Sélectionner les employés qui ne sont ni technicien, ni comptable, ni vendeur.*/
-/*26 : Sélectionner les directeurs des services 2, 4 et 5.*/
-/*27 : Sélectionner les subalternes qui ne sont pas dans les services 1, 3, 5.*/
-/*28 : Sélectionner les employés qui gagnent entre 20000 et 40000 euros, bornes comprises.*/
-/*29 : Sélectionner les employés qui gagnent moins de 20000 et plus de 40000 euros.*/
-/*30 : Sélectionner les employés qui ne sont pas directeur et qui ont été embauchés en 88.*/
-/*30 : Sélectionner les employés qui ne sont pas directeur et qui ont été embauchés en 88.*/
-/*31 : Sélectionner les directeurs des services 2 ,3 , 4, 5 sans le IN.*/
-/*32 :Sélectionner les employés dont le nom commence par la lettre M.*/
-/*33 : Sélectionner les employés dont le nom se termine par T.*/
-/*34 : Sélectionner les employés ayant au moins deux E dans leur nom.*/
-/*35 : Sélectionner les employés ayant exactement un E dans leur nom.*/
-/*36 : Sélectionner les employés ayant au moins un N et un O dans leur nom.*/
-/*37 : Sélectionner les employés dont le nom s'écrit avec 6 caractères et qui se termine par N.*/
-/*38 : Sélectionner les employés dont la troisième lettre du nom est un R.*/
-/*39 : Sélectionner les employés dont le nom ne s'écrit pas avec 5 caractères.*/
-/*40 : Trier les employés (nom, prénom, n° de service, salaire) du service 3 par ordre de salaire croissant.*/
-/*41 : Trier les employés (nom, prénom, n° de service , salaire) du service 3 par ordre de salaire décroissant.*/
-/*42 : Idem en indiquant le numéro de colonne à la place du nom colonne.*/
-/*43 : Trier les employés (nom, prénom, n° de service, salaire, emploi) par emploi, et pour chaque emploi par ordre décroissant de salaire.*/
-/*44 : Idem en indiquant les numéros de colonnes.*/
-/*45 : Trier les employés (nom, prénom, n° de service, commission) du service3 par ordre croissant de commission.*/
-/*46 : Trier les employés (nom, prénom, n° de service, commission) du service 3 par ordre décroissant de commission, en considérant que celui dont la commission est nulle ne touche pas de commission.*/
-/*47 : Sélectionner le nom, le prénom, l'emploi, le nom du service de l'employé pour tous les employés.*/
+## 24 : Sélectionner les employés qui sont techniciens, comptables ou vendeurs.
+SELECT * FROM emp WHERE emploi = 'TECHNICIEN' or emploi = 'COMPTABLE' or emploi = 'VENDEUR';
+
+## 25 : Sélectionner les employés qui ne sont ni technicien, ni comptable, ni vendeur.
+SELECT * FROM emp WHERE emploi != 'TECHNICIEN' and emploi != 'COMPTABLE' and emploi != 'VENDEUR';
+
+## 26 : Sélectionner les directeurs des services 2, 4 et 5.
+SELECT * FROM emp WHERE emploi = 'DIRECTEUR' and noserv =2 or emploi = 'DIRECTEUR' and noserv = 4 or emploi = 'DIRECTEUR' and noserv = 5
+
+## 27 : Sélectionner les subalternes qui ne sont pas dans les services 1, 3, 5.
+SELECT * FROM emp WHERE emploi != 'PRESIDENT' and emploi != 'DIRECTEUR' and noserv != 1 and noserv != 3 and noserv != 5
+
+## 28 : Sélectionner les employés qui gagnent entre 20000 et 40000 euros, bornes comprises.
+SELECT * FROM emp WHERE sal >= 20000 and sal <= 40000
+
+## 29 : Sélectionner les employés qui gagnent moins de 20000 et plus de 40000 euros.
+SELECT * FROM emp WHERE sal <= 20000 or sal >= 40000
+
+## 30 : Sélectionner les employés qui ne sont pas directeur et qui ont été embauchés en 88.
+SELECT * FROM emp WHERE emploi != 'DIRECTEUR' and embauche <= '1988-12-31' and embauche >= '1988-01-01'  
+
+## 31 : Sélectionner les directeurs des services 2 ,3 , 4, 5 sans le IN.
+SELECT * FROM emp WHERE emploi = 'DIRECTEUR' and noserv = 5 or  emploi = 'DIRECTEUR' and noserv = 4 or  emploi = 'DIRECTEUR' and noserv = 3 or  emploi = 'DIRECTEUR' and noserv = 2
+
+## 32 :Sélectionner les employés dont le nom commence par la lettre M.
+SELECT * FROM emp WHERE nom like 'M%'
+
+## 33 : Sélectionner les employés dont le nom se termine par T.
+SELECT * FROM emp WHERE nom like '%T'
+
+## 34 : Sélectionner les employés ayant au moins deux E dans leur nom.
+SELECT * FROM emp WHERE nom like '%E%E%'
+
+## 35 : Sélectionner les employés ayant exactement un E dans leur nom.
+SELECT * FROM emp WHERE nom like '%E%' and nom NOT LIKE '%E%E%'
+
+## 36 : Sélectionner les employés ayant au moins un N et un O dans leur nom.
+SELECT * FROM emp WHERE nom like '%N%' and nom LIKE '%O%'
+
+## 37 : Sélectionner les employés dont le nom s'écrit avec 6 caractères et qui se termine par N.
+SELECT * FROM emp WHERE nom like '_____N%'
+
+## 38 : Sélectionner les employés dont la troisième lettre du nom est un R.
+SELECT * FROM emp WHERE nom like '__R%'
+
+## 39 : Sélectionner les employés dont le nom ne s'écrit pas avec 5 caractères.
+SELECT * FROM emp WHERE nom not like '_____'
+
+## 40 : Trier les employés (nom, prénom, n° de service, salaire) du service 3 par ordre de salaire croissant.
+SELECT nom,prenom,noserv,sal FROM emp WHERE noserv = 3 ORDER BY sal 
+
+## 41 : Trier les employés (nom, prénom, n° de service , salaire) du service 3 par ordre de salaire décroissant.
+SELECT nom,prenom,noserv,sal FROM emp WHERE noserv = 3 ORDER BY sal DESC
+
+## 42 : Idem en indiquant le numéro de colonne à la place du nom colonne.
+SELECT nom,prenom,noserv,sal FROM emp WHERE noserv = 3 ORDER BY 4 desc
+
+## 43 : Trier les employés (nom, prénom, n° de service, salaire, emploi) par emploi, et pour chaque emploi par ordre décroissant de salaire.
+SELECT nom,prenom,noserv,sal,emploi FROM emp ORDER BY emploi, sal desc
+
+## 44 : Idem en indiquant les numéros de colonnes.
+SELECT nom,prenom,noserv,sal,emploi FROM emp ORDER BY 5, 4 desc
+
+## 45 : Trier les employés (nom, prénom, n° de service, commission) du service3 par ordre croissant de commission.
+SELECT nom,prenom,noserv,sal,comm FROM emp WHERE noserv = 3 ORDER BY comm
+
+## 46 : Trier les employés (nom, prénom, n° de service, commission) du service 3 par ordre décroissant de commission, en considérant que celui dont la commission est nulle ne touche pas de commission.
+SELECT nom,prenom,noserv,sal,comm FROM emp WHERE noserv = 3 ORDER BY comm DESC 
+
+## 47 : Sélectionner le nom, le prénom, l'emploi, le nom du service de l'employé pour tous les employés.
+SELECT nom ,prenom,emploi,service FROM emp NATURAL JOIN serv 
+
 /*48 : Sélectionner le nom, l'emploi, le numéro de service, le nom du service pour tous les employés.*/
 /*49 : Idem en utilisant des alias pour les noms de tables.*
 /*50 : Sélectionner le nom, l'emploi, suivis de toutes les colonnes de la table SERV pour tous les employés.*/
