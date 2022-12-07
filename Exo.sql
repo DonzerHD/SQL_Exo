@@ -281,14 +281,34 @@ WHERE noserv = 1 and emploi in ( SELECT emploi FROM emp NATURAL JOIN serv WHERE 
 SELECT * FROM emp NATURAL JOIN serv WHERE ville = 'LILLE' and emploi = ( SELECT emploi FROM emp WHERE nom = 'RICHARD' )
 
 /*67 : Sélectionner les employés dont le salaire est plus élevé que le salaire moyen de leur service (moyenne des salaires = avg(sal)), résultats triés par numéros de service.*/
+SELECT
+    *
+FROM
+    emp AS emp1 WHERE sal > (SELECT avg(sal) FROM emp AS emp2
+WHERE
+    emp1.noserv = emp2.noserv ) order by noserv
 
+/* 68 : Sélectionner les employés du service INFORMATIQUE embauchés la même année qu'un employé du service VENTES.( année : to_char(embauche,’YYYY’) )*/
+SELECT * FROM emp NATURAL JOIN serv WHERE service = 'INFORMATIQUE' and to_char(embauche,'YYYY') in (select to_char(embauche, 'YYYY') FROM emp NATURAL JOIN serv WHERE service = 'VENTES') 
 
-/*68 : Sélectionner les employés du service INFORMATIQUE embauchés la même année qu'un employé du service VENTES.( année : to_char(embauche,’YYYY’) )*/
 /*69 : Sélectionner le nom, l’emploi, la ville pour les employés qui ne travaillent pas dans le même service que leur supérieur hiérarchique direct.*/
+
+
+
 /*70 : Sélectionner le nom, le prénom, le service, le revenu des employés qui ont des subalternes, trier le résultat suivant le revenu décroissant.*/
+
 /*71 :Sélectionner le nom, l’emploi, le revenu mensuel (nommé Revenu) avec deux décimales pour tous les employés, dans l’ordre des revenus décroissants.*/
+SELECT nom, emploi, ROUND(sal + comm, 2) as revenu FROM emp WHERE comm IS NOT NULL
+UNION 
+SELECT nom, emploi , ROUND(sal,2) as revenu FROM emp WHERE comm IS NULL
+ORDER BY revenu
+
 /*72 : Sélectionner le nom, le salaire, commission des employés dont la commission représente plus que le double du salaire.*/
+SELECT nom, sal, comm FROM emp WHERE (sal *2) < comm
+
 /*73 : Sélectionner nom, prénom, emploi, le pourcentage de commission (deux décimales) par rapport au revenu mensuel ( renommé "% Commissions") , pour tous les vendeurs dans l'ordre décroissant de ce pourcentage.*/
+
+
 /*74 : Sélectionner le nom, l’emploi, le service et le revenu annuel ( à l’euro près) de tous les vendeurs.*/
 /*75 : Sélectionner nom, prénom, emploi, salaire, commissions, revenu mensuel pour les employés des services 3,5,6.*/
 /*76 : Idem pour les employés des services 3,5,6 en remplaçant les noms des colonnes : SAL par SALAIRE, COMM par COMMISSIONS, SAL+IFNULL(COMM,0) par GAIN_MENSUEL.*/
