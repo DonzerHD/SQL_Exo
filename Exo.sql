@@ -292,8 +292,20 @@ WHERE
 SELECT * FROM emp NATURAL JOIN serv WHERE service = 'INFORMATIQUE' and to_char(embauche,'YYYY') in (select to_char(embauche, 'YYYY') FROM emp NATURAL JOIN serv WHERE service = 'VENTES') 
 
 /*69 : Sélectionner le nom, l’emploi, la ville pour les employés qui ne travaillent pas dans le même service que leur supérieur hiérarchique direct.*/
-
-
+SELECT
+    nom,
+    emploi,
+    ville
+FROM
+    emp AS emp1
+    inner join serv on emp1.noserv = serv.noserv
+    WHERE
+    emp1.noserv not in(
+    select
+    emp2.noserv
+    from 
+    emp AS emp2
+    where emp2.noemp = emp1.sup)
 
 /*70 : Sélectionner le nom, le prénom, le service, le revenu des employés qui ont des subalternes, trier le résultat suivant le revenu décroissant.*/
 
